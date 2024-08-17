@@ -32,7 +32,7 @@ return {
       vim.keymap.set("n", "<leader>gco", ":Gread<CR>")
 
       -- Open the commit window in vim to write a better commit message than is
-      -- possible in lazygit. Wrap is set to 72 characters.
+      -- possible in lazygit. Wrap is set to 50 and 72 characters.
       vim.keymap.set("n", "<leader>gcm", ":silent Git commit<CR>")
     end,
   },
