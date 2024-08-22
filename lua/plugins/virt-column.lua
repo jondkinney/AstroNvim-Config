@@ -13,6 +13,7 @@
 --
 --------------------------------------------------------------------------------
 
+-- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 ---@type LazySpec
 return {
   {
@@ -22,7 +23,7 @@ return {
       require("virt-column").setup {
         char = "│", -- You can customize the character used for the virtual column | is the default
         size = 0.5, -- The size of the virtual column, default is 1
-        virtcolumn = "81",
+        -- virtcolumn = "81", -- this is now set in the opts table for smart
       }
 
       -- Set the virtcolumn setting for COMMIT_EDITMSG buffer only
