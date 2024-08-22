@@ -34,6 +34,14 @@
 --
 --------------------------------------------------------------------------------
 
+local execute_win_command = function(winid, cmd)
+  if vim.api.nvim_get_current_win() == winid then
+    vim.cmd(cmd)
+  else
+    vim.cmd("call win_execute(" .. winid .. [[, "]] .. cmd .. [[")]])
+  end
+end
+
 ---@type LazySpec
 return {
   {
@@ -46,6 +54,7 @@ return {
         auto_expand_width = true,
         mappings = {
           ["/"] = "noop", -- Disable the default mapping
+          ["z"] = "noop", -- Disable the default mapping
         },
       })
 
@@ -100,7 +109,15 @@ return {
         },
         {
           event = "neo_tree_window_after_open",
-          handler = function()
+          handler = function(state)
+            -- The command setlocal scrolloff=10000 in Neovim sets the minimum
+            -- number of screen lines to keep above and below the cursor to
+            -- 10000 for the current buffer. This effectively keeps the cursor
+            -- centered vertically on the screen while scrolling, as it's
+            -- unlikely any buffer would have more than 10000 lines above or
+            -- below the visible area.
+            execute_win_command(state.winid, "setlocal scrolloff=10000")
+
             if vim.g.moving_window_c_hjkl then
               vim.g.moving_window_c_hjkl = false
               return
@@ -135,12 +152,16 @@ return {
 
       return opts
     end,
+
     config = function(_, opts)
       require("neo-tree").setup(opts)
 
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "neo-tree",
-        callback = function() vim.api.nvim_buf_set_keymap(0, "n", "/", "/", { noremap = true, silent = true }) end,
+        callback = function()
+          vim.api.nvim_buf_set_keymap(0, "n", "/", "/", { noremap = true, silent = true })
+          -- vim.api.nvim_buf_set_keymap(0, "n", "zz", "zz", { noremap = true, silent = true })
+        end,
       })
     end,
   },
