@@ -1,34 +1,40 @@
---============================================================================--
+-- ╭──────────────────────────────────────────────────────────────────────────╮
+-- │                       AstroNvim Core Configuration                       │
+-- ╰──────────────────────────────────────────────────────────────────────────╯
 --
--- https://github.com/AstroNvim/template/blob/main/lua/plugins/astrocore.lua
---
---============================================================================--
---
+-- ╭─ DESCRIPTION: ───────────────────────────────────────────────────────────╮
 -- This Lua script is a configuration file for the AstroNvim plugin for Neovim.
 -- It's structured as a lua table that is returned when the script is run,
 -- containing several nested tables configuring various aspects of AstroNvim.
 --
--- Key sections include:
+-- https://github.com/AstroNvim/template/blob/main/lua/plugins/astrocore.lua
+-- ── GitHub Plugin URL ─────────────────────────────────────────────────────
 --
---   FEATURES: Enables or disables core features like autopairs, completion,
+-- ══ Key sections include: ═════════════════════════════════════════════════
+--
+--   FEATURES:
+--     Enables or disables core features like autopairs, completion,
 --     diagnostics, URL highlighting, and notifications. It also sets global
 --     limits for large files.
 --
---   DIAGNOSTICS: Configures the behavior of diagnostics, controlling the use of
---     virtual text and underlines.
+--   DIAGNOSTICS:
+--     Configures the behavior of diagnostics, controlling the use of virtual
+--     text and underlines.
 --
---   OPTIONS: Configures vim options and global vim variables. It includes
---     settings for relativenumber, virtualedit, shiftround, listchars, etc.
+--   OPTIONS:
+--     Configures vim options and global vim variables. It includes settings
+--     for relativenumber, virtualedit, shiftround, listchars, etc.
 --
---   MAPPINGS: Configures key mappings for different modes (normal, terminal,
---     visual, and insert). Each sub-table contains key-value pairs where the
---     key is the key combination and the value is another table that specifies
---     the command to run and a description of what the command does.
+--   MAPPINGS:
+--     Configures key mappings for different modes (normal, terminal, visual,
+--     and insert). Each sub-table contains key-value pairs where the key is
+--     the key combination and the value is another table that specifies the
+--     command to run and a description of what the command does.
 --
--- This Configuration file includes and extends the default AstroNvim core
--- configuration with my personal preferences.
+--   This Configuration file includes and extends the default AstroNvim core
+--   configuration with my personal preferences.
 --
---------------------------------------------------------------------------------
+-- ╰──────────────────────────────────────────────────────────────────────────╯
 
 -- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
@@ -48,7 +54,7 @@ return {
       autopairs = true, -- enable autopairs at start
       cmp = true, -- enable completion at start
       diagnostics_mode = 3, -- diagnostic mode on start (0 = off, 1 = no signs/virtual text, 2 = no virtual text, 3 = on)
-      highlighturl = true, -- highlight URLs at start
+      highlighturl = false, -- highlight URLs at start
       notifications = true, -- enable notifications at start
     },
     -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
@@ -59,6 +65,8 @@ return {
     -- vim options can be configured here
     options = {
       opt = { -- vim.opt.<key>
+        -- title = true, -- sets vim.opt.title (shows the file/buffer name in the terminal titlebar)
+        textwidth = 78, -- sets vim.opt.textwidth. (want to hard wrap at 80)
         relativenumber = false, -- sets vim.opt.relativenumber
         number = true, -- sets vim.opt.number
         spell = false, -- sets vim.opt.spell
@@ -66,7 +74,8 @@ return {
         wrap = false, -- sets vim.opt.wrap
         virtualedit = "all", -- allows the cursor to go anywhere, not just the beginning of lines when moving with j and k
         shiftround = true, -- when indenting, round up or down to align with the nearest multiple of shiftwidth
-        iskeyword = vim.opt.iskeyword:append "-", -- append '-' to iskeyword
+        iskeyword = vim.opt.iskeyword:append "-", -- append '-' to iskeyword allowing dasherized words to be recognized as a single word
+        -- cmdheight = 1, -- sets vim.opt.cmdheight (ensures the command line is always 1 line high, and is not affected by messages coming in)
         listchars = { --Use the same symbols as TextMate for tabstops and EOLs
           tab = "▸ ",
           eol = "¬",
@@ -117,17 +126,16 @@ return {
         -- UI tweaks
         ["<Leader>ue"] = { "<cmd>set list!<cr>", desc = "Toggle showing line ending and tab characters" }, -- the listchars setting from above in the opts -> options -> opt table
 
-        -- Diagnostics
-        ["<LocalLeader>e"] = {
-          "<cmd>lua vim.diagnostic.open_float(0, {scope='line'})<CR>",
-          desc = "Show full error message in floating window for the current line",
-        },
-
-        -- Config
-        ["<LocalLeader>z"] = { "<CMD>Lazy<CR>", desc = "Open Lazy configuration" },
-
         -- Open floating terminal
         ["<C-t>"] = { "<cmd>ToggleTerm direction=float<cr>", desc = "Launch floating terminal" },
+
+        -- Comment Boxes  TODO: (2024-08-22) Jon => add more boxes
+        ["<leader>c"] = { name = "□ Boxes" },
+        ["<leader>cb"] = { "<cmd>CBccbox<cr>", desc = "Box Title" },
+        ["<leader>ct"] = { "<cmd>CBllline<cr>", desc = "Titled Line" },
+        ["<leader>cl"] = { "<cmd>CBline<cr>", desc = "Simple Line" },
+        ["<leader>cm"] = { "<cmd>CBllbox14<cr>", desc = "Marked" },
+        ["<leader>cd"] = { "<cmd>CBd<cr>", desc = "Remove a box" },
       },
       t = { -- Close floating terminal
         ["<C-T>"] = { "<cmd>ToggleTerm<cr>" },
