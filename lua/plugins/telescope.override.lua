@@ -57,10 +57,12 @@
 ---@type LazySpec
 return {
   "nvim-telescope/telescope.nvim",
-  opts = function(_, opts)
-    opts.pickers = {
+  opts = {
+    pickers = {
       find_files = {
-        hidden = true, -- default: false
+        follow = true, -- include symlinked files in search results
+        hidden = true,
+        file_ignore_patterns = { ".git/*", "node_modules/*", ".vscode/*" },
       },
       oldfiles = {
         sort_mru = true, -- default: false
@@ -69,6 +71,6 @@ return {
       buffers = {
         sort_lastused = true, --default: false
       },
-    }
-  end,
+    },
+  },
 }
