@@ -106,6 +106,16 @@ return {
         vim.api.nvim_set_hl(0, "DiffAdd", { bg = "#495A52" })
         vim.api.nvim_set_hl(0, "DiffChange", { bg = "#434C5E" })
         vim.api.nvim_set_hl(0, "DiffText", { bg = "#616E88" })
+
+        -- Set custom search highlight
+        -- Regular search matches
+        vim.api.nvim_set_hl(0, "Search", { bg = "#88C0D0", fg = "#3B4252" })
+
+        -- Current word under cursor during search
+        vim.api.nvim_set_hl(0, "CurSearch", { bg = "#88C0D0", fg = "#3B4252" })
+
+        -- Incremental search and current match when actively searching
+        vim.api.nvim_set_hl(0, "IncSearch", { bg = "#88C0D0", fg = "#3B4252" })
       end
       FixNord()
 
