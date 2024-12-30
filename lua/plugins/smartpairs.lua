@@ -26,6 +26,8 @@
 -- the next pairs.
 --
 -- TIP: Revert selection one pair at a time with <C-B> (think "back")
+--  NOTE: (2024-08-23) Jon => I'm using wildfire now, so see if I need to keep
+--  this other option around or not. They don't actually conflict!
 --------------------------------------------------------------------------------
 
 -- Default is <C-V>. Changed so that visual block selection works with <C-V>
