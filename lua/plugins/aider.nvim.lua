@@ -2,7 +2,7 @@
 --
 -- https://aider.chat/
 -- https://github.com/joshuavial/aider.nvim
--- https://github.com/joshuavial/aider.nvim (my fork)
+-- https://github.com/jondkinney/aider.nvim (my fork)
 --
 --============================================================================--
 --
@@ -67,7 +67,7 @@
 return {
   -- "joshuavial/aider.nvim", -- FIXME: broken
   -- "jondkinney/aider.nvim", -- use this fork until https://github.com/joshuavial/aider.nvim/pull/13 is merged
-  dir = "~/Code/aider.nvim",
+  dir = "~/Code/nvim_plugins/aider.nvim",
   config = function()
     require("aider").setup {
       auto_manage_context = true,
