@@ -55,13 +55,16 @@ return {
         auto_expand_width = true,
         mappings = {
           ["/"] = "noop", -- Disable the default mapping
-          ["z"] = "noop", -- Disable the default mapping
+          ["z"] = "noop", -- Disable the default mapping so we can use it for scrolling
+          ["X"] = "close_all_nodes", -- defalt is z
+          ["Z"] = "expand_all_nodes",
         },
       })
 
       opts.filesystem = vim.tbl_deep_extend("force", opts.filesystem or {}, {
         filtered_items = {
           visible = true,
+          hide_gitignored = false,
           never_show = {
             ".DS_Store",
             "thumbs.db",
