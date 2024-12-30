@@ -34,4 +34,11 @@ return {
     "max397574/better-escape.nvim",
     enabled = false,
   },
+  {
+    "3rd/image.nvim",
+    enabled = function()
+      if vim.env.KITTY_SCROLLBACK_NVIM == "true" then return false end
+      return true
+    end,
+  },
 }
