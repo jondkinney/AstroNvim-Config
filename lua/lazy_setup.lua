@@ -15,9 +15,11 @@ require("lazy").setup({
   },
   { import = "community" },
   { import = "plugins" },
+  { import = "plugins.experimental" },
 } --[[@as LazySpec]], {
   -- Configure any other `lazy.nvim` configuration options here
   install = { colorscheme = { "astrotheme", "habamax" } },
+  rocks = { hererocks = true },
   ui = {
     backdrop = 80,
     -- border = "single",
