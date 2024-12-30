@@ -74,10 +74,20 @@ return {
       local map = vim.api.nvim_set_keymap
       local options = { noremap = true }
 
-      map("n", "<Leader>ss", "<plug>(SubversiveSubstituteWordRange)", options)
+      map("n", "<Leader>fs", "<plug>(SubversiveSubstituteWordRange)", options)
       map("x", "s", "<plug>(SubversiveSubstitute)", options)
       map("x", "p", "<plug>(SubversiveSubstitute)", options)
       map("x", "P", "<plug>(SubversiveSubstitute)", options)
     end,
+  },
+  {
+    "AstroNvim/astrocore",
+    opts = {
+      mappings = { --  TODO: (2024-08-05) Jon => bring these mappings into the config above
+        n = {
+          ["<Leader>fs"] = { name = "Subversive Substitute Word Range" },
+        },
+      },
+    },
   },
 }
