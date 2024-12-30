@@ -54,7 +54,7 @@ return {
       autopairs = true, -- enable autopairs at start
       cmp = true, -- enable completion at start
       diagnostics_mode = 3, -- diagnostic mode on start (0 = off, 1 = no signs/virtual text, 2 = no virtual text, 3 = on)
-      highlighturl = false, -- highlight URLs at start
+      highlighturl = true, -- highlight URLs at start
       notifications = true, -- enable notifications at start
     },
     -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
@@ -121,21 +121,21 @@ return {
         ["=="] = { "<cmd>wincmd =<cr>", desc = "Resize all windows to be equal height and width" },
 
         -- NeoTree
-        ["<Leader>D"] = { "<cmd>:Neotree reveal<cr>", desc = "Reveal current buffer in Explorer" }, -- <Leader>o is the default, but this mapping is muscle memory from NERDTree
+        ["<Leader>D"] = { "<cmd>Neotree reveal<cr>", desc = "Reveal current buffer in Explorer" }, -- <Leader>o is the default, but this mapping is muscle memory from NERDTree
 
         -- UI tweaks
         ["<Leader>ue"] = { "<cmd>set list!<cr>", desc = "Toggle showing line ending and tab characters" }, -- the listchars setting from above in the opts -> options -> opt table
 
         -- Open floating terminal
         ["<C-t>"] = { "<cmd>ToggleTerm direction=float<cr>", desc = "Launch floating terminal" },
+        -- Remap btm to <Leader>tb since it conflicts with neotest's default mapping of <leader>tt (which is used for toggling the test runner)
+        ["<Leader>tb"] = {
+          function() require("astrocore").toggle_term_cmd { cmd = "btm", direction = "float" } end,
+          desc = "ToggleTerm btm",
+        },
 
-        -- Comment Boxes  TODO: (2024-08-22) Jon => add more boxes
-        ["<leader>c"] = { name = "□ Boxes" },
-        ["<leader>cb"] = { "<cmd>CBccbox<cr>", desc = "Box Title" },
-        ["<leader>ct"] = { "<cmd>CBllline<cr>", desc = "Titled Line" },
-        ["<leader>cl"] = { "<cmd>CBline<cr>", desc = "Simple Line" },
-        ["<leader>cm"] = { "<cmd>CBllbox14<cr>", desc = "Marked" },
-        ["<leader>cd"] = { "<cmd>CBd<cr>", desc = "Remove a box" },
+        -- Typescript go to source definition
+        -- ["gD"] = { require("vtsls").goto_source_definition, desc = "VTSLS: Go to source definition" },
       },
       t = { -- Close floating terminal
         ["<C-T>"] = { "<cmd>ToggleTerm<cr>" },
