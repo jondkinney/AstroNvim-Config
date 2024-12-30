@@ -34,13 +34,14 @@
 --
 --------------------------------------------------------------------------------
 
-local execute_win_command = function(winid, cmd)
-  if vim.api.nvim_get_current_win() == winid then
-    vim.cmd(cmd)
-  else
-    vim.cmd("call win_execute(" .. winid .. [[, "]] .. cmd .. [[")]])
-  end
-end
+-- this method is for the scrolloff=10000 that's commented out
+-- local execute_win_command = function(winid, cmd)
+--   if vim.api.nvim_get_current_win() == winid then
+--     vim.cmd(cmd)
+--   else
+--     vim.cmd("call win_execute(" .. winid .. [[, "]] .. cmd .. [[")]])
+--   end
+-- end
 
 ---@type LazySpec
 return {
@@ -109,14 +110,16 @@ return {
         },
         {
           event = "neo_tree_window_after_open",
-          handler = function(state)
+          handler = function(_state)
             -- The command setlocal scrolloff=10000 in Neovim sets the minimum
             -- number of screen lines to keep above and below the cursor to
             -- 10000 for the current buffer. This effectively keeps the cursor
             -- centered vertically on the screen while scrolling, as it's
             -- unlikely any buffer would have more than 10000 lines above or
             -- below the visible area.
-            execute_win_command(state.winid, "setlocal scrolloff=10000")
+            --
+            --  TODO: (2024-08-27) Jon => determine if I want to keep this
+            -- execute_win_command(state.winid, "setlocal scrolloff=10000")
 
             if vim.g.moving_window_c_hjkl then
               vim.g.moving_window_c_hjkl = false
